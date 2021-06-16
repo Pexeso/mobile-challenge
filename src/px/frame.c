@@ -5,7 +5,7 @@
 #include <libavutil/mem.h>
 #include <libavutil/pixdesc.h>
 
-const int kDarknessThreshold = 0;
+const int kDarknessThreshold = 30;
 
 int PX_Frame_New(PX_Frame** frame_p) {
   PX_Frame* frame = (PX_Frame*)av_mallocz(sizeof(PX_Frame));
@@ -47,9 +47,24 @@ bool PX_Frame_IsDark(PX_Frame* frame) {
     }
   }
 
-  return (cnt / sum) < kDarknessThreshold;
+  return (sum / cnt) < kDarknessThreshold;
 }
 
 float PX_Frame_GetTimestamp(PX_Frame* frame) {
   return frame->timestamp;
+}
+
+int PX_Frame_WriteToFile(PX_Frame* frame, const char* path) {
+  FILE* file = fopen(path, "w");
+  if (!file) {
+    return AVERROR(EINVAL);
+  }
+
+  fprintf(file, "P5 %d %d 255\n", frame->av_frame->width, frame->av_frame->height);
+  for (int i = 0; i < frame->av_frame->height; i++) {
+    int offset = i * frame->av_frame->linesize[0];
+    const void* ptr = frame->av_frame->data[0] + offset;
+    fwrite(ptr, 1, frame->av_frame->width, file);
+  }
+  fclose(file);
 }

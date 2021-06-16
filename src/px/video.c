@@ -98,6 +98,9 @@ static void FreeVideo(PX_Video* video) {
 }
 
 int PX_Video_New(PX_Video** video_p, const char* path) {
+  // Set to null in case of an error.
+  *video_p = NULL;
+
   PX_Video* video = (PX_Video*)av_mallocz(sizeof(PX_Video));
   if (!video) {
     return AVERROR(ENOMEM);
@@ -115,6 +118,10 @@ int PX_Video_New(PX_Video** video_p, const char* path) {
 }
 
 void PX_Video_Free(PX_Video** video_p) {
+  if (!video_p || !*video_p) {
+    return;
+  }
+
   FreeVideo(*video_p);
   av_freep(video_p);
 }
@@ -122,6 +129,10 @@ void PX_Video_Free(PX_Video** video_p) {
 int PX_Video_NextFrame(PX_Video* video, PX_Frame* frame) {
   int ret;
   bool terminate = false;
+
+  if (!video) {
+    return AVERROR(EINVAL);
+  }
 
   for (;;) {
     for (;;) {
@@ -137,6 +148,7 @@ int PX_Video_NextFrame(PX_Video* video, PX_Frame* frame) {
       video->frame->pts = video->frame->best_effort_timestamp;
       frame->timestamp = video->frame->pts * video->time_base;
 
+      av_frame_unref(frame->av_frame);
       av_frame_move_ref(frame->av_frame, video->frame);
       return 1;
     }

@@ -45,4 +45,13 @@ bool PX_Frame_IsDark(PX_Frame* frame);
  */
 float PX_Frame_GetTimestamp(PX_Frame* frame);
 
+/*!
+ * Write the frame to a file in PGM format.
+ *
+ * \param frame is the frame we want to write to a file.
+ * \param path is where we want to write the frame to.
+ * \return 0 on success, <0 on error.
+ */
+int PX_Frame_WriteToFile(PX_Frame* frame, const char* path);
+
 #endif /* PX_FRAME_H_ */

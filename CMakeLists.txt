@@ -27,3 +27,5 @@ install(FILES
   include/px/video.h
   include/px/frame.h
   DESTINATION include/px)
+install(FILES ${PROJECT_BINARY_DIR}/px.pc
+  DESTINATION lib/pkgconfig)
