@@ -1,0 +1,6 @@
+BasedOnStyle: Google
+ColumnLimit: 100
+AllowShortFunctionsOnASingleLine: Inline
+SortIncludes: false
+DerivePointerAlignment: false
+AlignAfterOpenBracket: Align
