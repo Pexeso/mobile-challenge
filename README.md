@@ -2,7 +2,8 @@
 
 In this repository there is a small library written in C programming language that is using [FFmpeg](https://ffmpeg.org/) to read videos frame by frame. 
 
-Your task is to write language bindings (Kotlin/Java for Android, Swift for iOS) that will use this library and build it for either Android or iOS so that it can be easily used in any iOS or Android app.
+Your task is to write language bindings (Kotlin/Java for Android, Swift for iOS) that will use this library and build it together with the required dependencies for either Android or iOS. The deliverable of this challenge is the source code for the language binding, a build script and instructions on how to build and use it.
+
 
 ### Building and installing the library
 
