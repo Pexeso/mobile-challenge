@@ -7,4 +7,4 @@ Description: Library for finding out which frames in a video are too dark.
 URL: https://pex.com/careers/
 Version: @CMAKE_PROJECT_VERSION@
 Libs: -L${libdir} -lpx
-Cflags: -I${includedir}/px
+Cflags: -I${includedir}

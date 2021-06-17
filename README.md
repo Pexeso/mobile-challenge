@@ -18,9 +18,8 @@ With the dependencies installed you can start building.
     $ cd mobile-challenge
     $ mkdir build
     $ cd build
-    $ cmake ..
-    $ make
-    $ sudo make install
+    $ cmake -DCMAKE_INSTALL_PREFIX=../install ..
+    $ make install
 
 
 ### Usage example
